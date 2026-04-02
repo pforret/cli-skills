@@ -21,9 +21,10 @@ CliSkills/
 
 ## Available skills
 
-| Skill | Description |
-|-------|-------------|
-| [screenshot](screenshot/) | Take full-page or element screenshots via Playwright (Python) |
+| Skill                                       | Description                                                                             |
+|---------------------------------------------|-----------------------------------------------------------------------------------------|
+| [screenshot](screenshot/)                   | Take web page screenshots via [shot-scraper](https://github.com/simonw/shot-scraper)    |
+| [convert_to_markdown](convert_to_markdown/) | Convert documents to Markdown via [markitdown](https://github.com/microsoft/markitdown) |
 
 ## Usage
 

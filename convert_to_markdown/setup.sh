@@ -10,11 +10,8 @@ if [[ ! -d "$VENV_DIR" ]]; then
     python3 -m venv "$VENV_DIR"
 fi
 
-echo "==> Installing shot-scraper..."
-"${VENV_DIR}/bin/pip" install -q shot-scraper
-
-echo "==> Installing Playwright browser (Chromium)..."
-"${VENV_DIR}/bin/shot-scraper" install
+echo "==> Installing markitdown with all format support..."
+"${VENV_DIR}/bin/pip" install -q 'markitdown[all]'
 
 echo "==> Setup complete. Test with:"
-echo "    ${VENV_DIR}/bin/shot-scraper https://example.com -o test.png"
+echo "    ${VENV_DIR}/bin/markitdown --help"

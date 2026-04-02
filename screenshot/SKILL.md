@@ -1,6 +1,6 @@
 # Skill: screenshot
 
-Take screenshots of web pages using Playwright (headless Chromium).
+Take screenshots of web pages using [shot-scraper](https://github.com/simonw/shot-scraper) (a Playwright-based CLI by Simon Willison).
 
 ## Setup
 
@@ -12,59 +12,70 @@ bash screenshot/setup.sh
 
 ## Usage
 
-Invoke the screenshot script directly:
-
 ```bash
-python screenshot/screenshot.py <url> <output> [options]
+screenshot/.venv/bin/shot-scraper <url> [options]
 ```
 
-### Arguments
+### Key options
 
-| Argument | Required | Description |
-|----------|----------|-------------|
-| `url` | yes | URL to screenshot (include `https://`) |
-| `output` | yes | Output PNG file path |
-| `--width` | no | Viewport width in pixels (default: 1280) |
-| `--height` | no | Viewport height in pixels (default: 800) |
-| `--selector` | no | CSS selector — capture only that element |
-| `--full-page` | no | Capture full scrollable page (default: true) |
-| `--no-full-page` | no | Capture only the visible viewport |
-| `--wait` | no | Extra milliseconds to wait after page load (default: 0) |
-| `--timeout` | no | Navigation timeout in milliseconds (default: 30000) |
+| Option               | Description                                     |
+|----------------------|-------------------------------------------------|
+| `<url>`              | URL to screenshot (required)                    |
+| `-o FILE`            | Output file path (default: auto-named from URL) |
+| `-w WIDTH`           | Viewport width in pixels (default: 1280)        |
+| `-h HEIGHT`          | Viewport height — omit for full-page capture    |
+| `-s SELECTOR`        | CSS selector — capture only that element        |
+| `--selector-all SEL` | Capture all matching elements as separate files |
+| `-j JS`              | JavaScript to execute before screenshot         |
+| `--wait MS`          | Milliseconds to wait after page load            |
+| `--retina`           | 2x pixel density (HiDPI)                        |
+| `--quality N`        | JPEG quality 0-100 (use with `-o file.jpg`)     |
 
 ### Examples
 
-Full-page screenshot:
+Full-page screenshot (PNG):
 ```bash
-python screenshot/screenshot.py https://example.com out.png
+screenshot/.venv/bin/shot-scraper https://example.com -o example.png
 ```
 
 Mobile viewport:
 ```bash
-python screenshot/screenshot.py https://example.com mobile.png --width 375 --height 812
+screenshot/.venv/bin/shot-scraper https://example.com -o mobile.png -w 390 -h 844
 ```
 
 Capture a specific element:
 ```bash
-python screenshot/screenshot.py https://example.com hero.png --selector "#hero"
+screenshot/.venv/bin/shot-scraper https://example.com -o hero.png -s "#hero"
 ```
 
 Viewport only (no scroll):
 ```bash
-python screenshot/screenshot.py https://example.com fold.png --no-full-page
+screenshot/.venv/bin/shot-scraper https://example.com -o fold.png -w 1280 -h 800
+```
+
+Retina/HiDPI:
+```bash
+screenshot/.venv/bin/shot-scraper https://example.com -o retina.png --retina
+```
+
+Execute JS before capture (e.g. dismiss a cookie banner):
+```bash
+screenshot/.venv/bin/shot-scraper https://example.com -o clean.png -j "document.querySelector('.cookie-banner')?.remove()"
 ```
 
 ## How Claude Code should use this skill
 
 When the user asks to take a screenshot of a URL:
 
-1. Ensure setup has been run (`setup.sh`)
+1. Ensure setup has been run (`bash screenshot/setup.sh`)
 2. Determine output path (default to `screenshot.png` in current dir if not specified)
-3. Build the command from user-specified options
-4. Run the command via Bash
+3. Build the `shot-scraper` command from user-specified options
+4. Run via Bash
 5. Report the saved file path
 
-When the user specifies a device (e.g., "mobile", "tablet"), map to typical viewport sizes:
-- mobile: `--width 390 --height 844`
-- tablet: `--width 768 --height 1024`
-- desktop: `--width 1280 --height 800` (default)
+When the user specifies a device, map to viewport sizes:
+- mobile: `-w 390 -h 844`
+- tablet: `-w 768 -h 1024`
+- desktop: `-w 1280` (omit `-h` for full page)
+
+For retina/print quality, add `--retina`.
