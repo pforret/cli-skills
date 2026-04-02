@@ -41,13 +41,29 @@ Or pipe to stdout:
 <plugin-root>/.venv/bin/markitdown photo.jpg -o photo.md
 ```
 
+## Docker alternative
+
+No Python/venv needed — just Docker:
+
+```bash
+bash <plugin-root>/run.sh report.pdf -o report.md
+```
+
+The `run.sh` wrapper auto-detects: uses Docker if available (builds image on first run), falls back to venv. You can also run Docker directly:
+
+```bash
+docker run --rm -v "$(pwd):/work" cliskills/markdown-file report.pdf -o report.md
+```
+
+Build the image once with: `docker build -t cliskills/markdown-file <plugin-root>/`
+
 ## How Claude Code should use this skill
 
 1. Determine `PLUGIN_ROOT` by resolving `../..` from this SKILL.md file's path
-2. Ensure setup has been run (`bash $PLUGIN_ROOT/setup.sh`)
-3. Run `$PLUGIN_ROOT/.venv/bin/markitdown <input> -o <output>`
+2. **Preferred**: use `bash $PLUGIN_ROOT/run.sh <input> [options]` — auto-detects Docker or venv
+3. **Fallback**: ensure setup has been run (`bash $PLUGIN_ROOT/setup.sh`) and use `$PLUGIN_ROOT/.venv/bin/markitdown` directly
 4. Read the resulting `.md` if the user wants to see the content
 
 **Do NOT use this skill for URLs** — use `markdown-web` instead.
 
-Requires Python 3.10+.
+Requires Python 3.10+ (venv mode) or Docker.

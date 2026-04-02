@@ -47,14 +47,30 @@ bash <plugin-root>/setup.sh
 <plugin-root>/.venv/bin/shot-scraper https://example.com -o clean.png -j "document.querySelector('.cookie-banner')?.remove()"
 ```
 
+## Docker alternative
+
+No Python/venv needed — just Docker:
+
+```bash
+bash <plugin-root>/run.sh https://example.com -o example.png
+```
+
+The `run.sh` wrapper auto-detects: uses Docker if available (builds image on first run), falls back to venv. You can also run Docker directly:
+
+```bash
+docker run --rm -v "$(pwd):/work" cliskills/screenshot-web https://example.com -o example.png
+```
+
+Build the image once with: `docker build -t cliskills/screenshot-web <plugin-root>/`
+
 ## How Claude Code should use this skill
 
 When the user asks to take a screenshot of a URL:
 
 1. Determine `PLUGIN_ROOT` by resolving `../..` from this SKILL.md file's path
-2. Ensure setup has been run (`bash $PLUGIN_ROOT/setup.sh`)
-3. Determine output path (default to `screenshot.png` in cwd if not specified)
-4. Build the `$PLUGIN_ROOT/.venv/bin/shot-scraper` command from user-specified options
+2. **Preferred**: use `bash $PLUGIN_ROOT/run.sh <url> [options]` — auto-detects Docker or venv
+3. **Fallback**: ensure setup has been run (`bash $PLUGIN_ROOT/setup.sh`) and use `$PLUGIN_ROOT/.venv/bin/shot-scraper` directly
+4. Determine output path (default to `screenshot.png` in cwd if not specified)
 5. Run via Bash and report the saved file path
 
 Device viewport mappings:

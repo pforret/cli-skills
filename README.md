@@ -23,6 +23,18 @@ A plugin marketplace for Claude Code — CLI-based skills wrapping popular tools
 
 Each plugin has a `setup.sh` that installs dependencies. Run it once before first use. Claude will do this automatically when the skill is invoked.
 
+**Option A — Python venv** (default):
+```bash
+bash setup.sh
+```
+
+**Option B — Docker** (no Python/venv needed):
+```bash
+bash setup.sh --docker
+```
+
+Each plugin also has a `run.sh` wrapper that auto-detects whether to use Docker or venv, so you don't need to remember which mode you installed with.
+
 ## Available plugins
 
 | Plugin                                            | Description                                             | Wraps                                                  |

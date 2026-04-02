@@ -53,17 +53,35 @@ Pass a feed URL directly to markitdown (extracts all entries as structured Markd
 <plugin-root>/.venv/bin/markitdown "https://feeds.bbci.co.uk/news/world/rss.xml" -o bbc-feed.md
 ```
 
+## Docker alternative
+
+No Python/venv needed — just Docker:
+
+```bash
+bash <plugin-root>/run.sh "https://www.youtube.com/watch?v=VIDEO_ID" -o transcript.md
+bash <plugin-root>/run.sh "https://feeds.bbci.co.uk/news/world/rss.xml" -o feed.md
+```
+
+The `run.sh` wrapper auto-detects: uses Docker if available (builds image on first run), falls back to venv. For web pages with JS rendering:
+
+```bash
+docker run --rm -v "$(pwd):/work" --entrypoint url2md cliskills/markdown-web https://app.example.com -o app.md --js
+```
+
+Build the image once with: `docker build -t cliskills/markdown-web <plugin-root>/`
+
 ## How Claude Code should use this skill
 
 1. Determine `PLUGIN_ROOT` by resolving `../..` from this SKILL.md file's path
-2. Ensure setup has been run (`bash $PLUGIN_ROOT/setup.sh`)
-3. Choose the right mode:
+2. **Preferred**: use `bash $PLUGIN_ROOT/run.sh <url> [options]` — auto-detects Docker or venv
+3. **Fallback**: ensure setup has been run (`bash $PLUGIN_ROOT/setup.sh`) and use commands directly
+4. Choose the right mode:
    - Most sites: `bash $PLUGIN_ROOT/url2md.sh <url> -o output.md` (uses curl, fast)
    - JS-heavy SPAs: add `--js` (uses Playwright, slower but accurate)
-   - YouTube videos: `$PLUGIN_ROOT/.venv/bin/markitdown "<youtube-url>" -o transcript.md`
-   - RSS/Atom feeds: `$PLUGIN_ROOT/.venv/bin/markitdown "<feed-url>" -o feed.md`
-4. If default mode returns mostly empty or broken content, retry with `--js`
+   - YouTube videos: `bash $PLUGIN_ROOT/run.sh "<youtube-url>" -o transcript.md`
+   - RSS/Atom feeds: `bash $PLUGIN_ROOT/run.sh "<feed-url>" -o feed.md`
+5. If default mode returns mostly empty or broken content, retry with `--js`
 
 **Do NOT use this skill for local files** — use `markdown-file` instead.
 
-Requires Python 3.10+.
+Requires Python 3.10+ (venv mode) or Docker.
