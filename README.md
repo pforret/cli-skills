@@ -4,19 +4,30 @@ A marketplace of CLI-based Claude Code skills — each skill is a self-contained
 
 ## Installation
 
-The easiest way to install these skills is via the Claude Code plugin marketplace:
+### Step 1: Add the marketplace
+
+Register this repo as a skill marketplace in Claude Code:
 
 ```bash
-/plugin marketplace add https://github.com/pforret/CliSkills
+/plugin marketplace add pforret/CliSkills
 ```
 
-This registers the CliSkills repo as a skill marketplace in Claude Code. You can then install individual skills from it.
+### Step 2: Install a skill
 
-To install a specific skill into your current project:
+Install individual skills into your current project:
 
 ```bash
-/install screenshot
-/install convert_to_markdown
+/plugin install screenshot@CliSkills
+/plugin install convert_to_markdown@CliSkills
+```
+
+### Step 3: Run setup
+
+Each skill has its own `setup.sh` that creates a Python virtual environment and installs dependencies. Run it once before first use:
+
+```bash
+bash screenshot/setup.sh
+bash convert_to_markdown/setup.sh
 ```
 
 ### Manual installation
@@ -27,15 +38,6 @@ If you prefer, you can clone the repo and copy skill folders manually:
 git clone https://github.com/pforret/CliSkills.git
 cp -r CliSkills/screenshot .claude/skills/
 cp -r CliSkills/convert_to_markdown .claude/skills/
-```
-
-### Setup
-
-Each skill has its own `setup.sh` that creates a Python virtual environment and installs dependencies. Run it once before first use:
-
-```bash
-bash .claude/skills/screenshot/setup.sh
-bash .claude/skills/convert_to_markdown/setup.sh
 ```
 
 ## Available skills
