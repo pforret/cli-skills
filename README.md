@@ -25,12 +25,12 @@ Each plugin has a `setup.sh` that installs dependencies. Run it once before firs
 
 ## Available plugins
 
-| Plugin | Description | Wraps |
-|--------|-------------|-------|
-| [screenshot-web](plugins/screenshot-web/) | Take web page screenshots (by URL) | [shot-scraper](https://github.com/simonw/shot-scraper) |
-| [screenshot-desktop](plugins/screenshot-desktop/) | Capture desktop/screen/window screenshots | Native OS tools (screencapture, scrot, PowerShell) |
-| [markdown-web](plugins/markdown-web/) | Convert URLs, YouTube, RSS feeds to Markdown | [markitdown](https://github.com/microsoft/markitdown) |
-| [markdown-file](plugins/markdown-file/) | Convert local files (PDF, DOCX, PPTX, etc.) to Markdown | [markitdown](https://github.com/microsoft/markitdown) |
+| Plugin                                            | Description                                             | Wraps                                                  |
+|---------------------------------------------------|---------------------------------------------------------|--------------------------------------------------------|
+| [screenshot-web](plugins/screenshot-web/)         | Take web page screenshots (by URL)                      | [shot-scraper](https://github.com/simonw/shot-scraper) |
+| [screenshot-desktop](plugins/screenshot-desktop/) | Capture desktop/screen/window screenshots               | Native OS tools                                        |
+| [markdown-web](plugins/markdown-web/)             | Convert URLs, YouTube, RSS feeds to Markdown            | [markitdown](https://github.com/microsoft/markitdown)  |
+| [markdown-file](plugins/markdown-file/)           | Convert local files (PDF, DOCX, PPTX, etc.) to Markdown | [markitdown](https://github.com/microsoft/markitdown)  |
 
 ## Structure
 
