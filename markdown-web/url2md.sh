@@ -4,7 +4,7 @@ set -euo pipefail
 # url2md.sh — Convert a URL to Markdown
 #
 # Usage:
-#   bash convert_to_markdown/url2md.sh <url> [-o output.md] [--js]
+#   bash markdown-web/url2md.sh <url> [-o output.md] [--js]
 #
 # Modes:
 #   Default:  curl + markitdown (fast, works for most sites)
@@ -14,7 +14,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="${SCRIPT_DIR}/.venv"
 MARKITDOWN="${VENV_DIR}/bin/markitdown"
-SHOT_SCRAPER="${SCRIPT_DIR}/../screenshot/.venv/bin/shot-scraper"
+SHOT_SCRAPER="${SCRIPT_DIR}/../screenshot-web/.venv/bin/shot-scraper"
 
 usage() {
     echo "Usage: $0 <url> [-o output.md] [--js] [--wait MS]"
@@ -47,7 +47,7 @@ done
 
 # Check markitdown is installed
 if [[ ! -x "$MARKITDOWN" ]]; then
-    echo "error: markitdown not found. Run: bash convert_to_markdown/setup.sh" >&2
+    echo "error: markitdown not found. Run: bash markdown-web/setup.sh" >&2
     exit 1
 fi
 
@@ -76,7 +76,7 @@ with open('${TMPDIR}/page.html', 'w') as f:
     f.write(html)
 "
         else
-            echo "error: --js requires playwright or shot-scraper. Install the screenshot skill or: pip install playwright" >&2
+            echo "error: --js requires playwright or shot-scraper. Install the screenshot-web skill or: pip install playwright" >&2
             exit 1
         fi
     else

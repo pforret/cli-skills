@@ -17,8 +17,10 @@ Register this repo as a skill marketplace in Claude Code:
 Install individual skills into your current project:
 
 ```bash
-/plugin install screenshot@CliSkills
-/plugin install convert_to_markdown@CliSkills
+/plugin install screenshot-web@CliSkills
+/plugin install screenshot-desktop@CliSkills
+/plugin install markdown-web@CliSkills
+/plugin install markdown-file@CliSkills
 ```
 
 ### Step 3: Run setup
@@ -26,8 +28,10 @@ Install individual skills into your current project:
 Each skill has its own `setup.sh` that creates a Python virtual environment and installs dependencies. Run it once before first use:
 
 ```bash
-bash screenshot/setup.sh
-bash convert_to_markdown/setup.sh
+bash screenshot-web/setup.sh
+bash screenshot-desktop/setup.sh
+bash markdown-web/setup.sh
+bash markdown-file/setup.sh
 ```
 
 ### Manual installation
@@ -36,16 +40,20 @@ If you prefer, you can clone the repo and copy skill folders manually:
 
 ```bash
 git clone https://github.com/pforret/CliSkills.git
-cp -r CliSkills/screenshot .claude/skills/
-cp -r CliSkills/convert_to_markdown .claude/skills/
+cp -r CliSkills/screenshot-web .claude/skills/
+cp -r CliSkills/screenshot-desktop .claude/skills/
+cp -r CliSkills/markdown-web .claude/skills/
+cp -r CliSkills/markdown-file .claude/skills/
 ```
 
 ## Available skills
 
 | Skill | Description | Wraps |
 |-------|-------------|-------|
-| [screenshot](screenshot/) | Take web page screenshots | [shot-scraper](https://github.com/simonw/shot-scraper) |
-| [convert_to_markdown](convert_to_markdown/) | Convert documents, URLs, YouTube, RSS to Markdown | [markitdown](https://github.com/microsoft/markitdown) |
+| [screenshot-web](screenshot-web/) | Take web page screenshots (by URL) | [shot-scraper](https://github.com/simonw/shot-scraper) |
+| [screenshot-desktop](screenshot-desktop/) | Capture desktop/screen/window screenshots | Native OS tools (screencapture, scrot, PowerShell) |
+| [markdown-web](markdown-web/) | Convert URLs, YouTube, RSS feeds to Markdown | [markitdown](https://github.com/microsoft/markitdown) |
+| [markdown-file](markdown-file/) | Convert local files (PDF, DOCX, PPTX, etc.) to Markdown | [markitdown](https://github.com/microsoft/markitdown) |
 
 ## What is a Claude Code skill?
 
