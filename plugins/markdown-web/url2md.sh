@@ -4,7 +4,7 @@ set -euo pipefail
 # url2md.sh — Convert a URL to Markdown
 #
 # Usage:
-#   bash markdown-web/url2md.sh <url> [-o output.md] [--js]
+#   bash <plugin-root>/url2md.sh <url> [-o output.md] [--js]
 #
 # Modes:
 #   Default:  curl + markitdown (fast, works for most sites)
@@ -14,7 +14,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="${SCRIPT_DIR}/.venv"
 MARKITDOWN="${VENV_DIR}/bin/markitdown"
-SHOT_SCRAPER="${SCRIPT_DIR}/../screenshot-web/.venv/bin/shot-scraper"
+# Try shot-scraper from PATH first, then own venv
+SHOT_SCRAPER="$(command -v shot-scraper 2>/dev/null || echo "")"
 
 usage() {
     echo "Usage: $0 <url> [-o output.md] [--js] [--wait MS]"
@@ -47,7 +48,7 @@ done
 
 # Check markitdown is installed
 if [[ ! -x "$MARKITDOWN" ]]; then
-    echo "error: markitdown not found. Run: bash markdown-web/setup.sh" >&2
+    echo "error: markitdown not found. Run setup.sh in the plugin root." >&2
     exit 1
 fi
 
@@ -56,7 +57,7 @@ trap 'rm -rf "$TMPDIR"' EXIT
 
 if $USE_JS; then
     # Use Playwright via shot-scraper to get rendered HTML
-    if [[ ! -x "$SHOT_SCRAPER" ]]; then
+    if [[ -z "$SHOT_SCRAPER" ]]; then
         # Fall back to playwright in own venv
         if "${VENV_DIR}/bin/python" -c "import playwright" 2>/dev/null; then
             echo "==> Rendering with Playwright..." >&2

@@ -1,0 +1,5 @@
+{
+  "name": "screenshot-web",
+  "description": "Take web page screenshots by URL using shot-scraper (Playwright)",
+  "version": "1.0.0"
+}

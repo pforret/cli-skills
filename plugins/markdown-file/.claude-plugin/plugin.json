@@ -1,0 +1,5 @@
+{
+  "name": "markdown-file",
+  "description": "Convert local files (PDF, DOCX, PPTX, XLSX, etc.) to Markdown using markitdown",
+  "version": "1.0.0"
+}

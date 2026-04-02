@@ -1,0 +1,48 @@
+{
+  "name": "cli-skills",
+  "owner": {
+    "name": "Peter Forret"
+  },
+  "metadata": {
+    "description": "CLI-based Claude Code skills wrapping popular tools",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "screenshot-web",
+      "source": "./plugins/screenshot-web",
+      "description": "Take web page screenshots by URL using shot-scraper (Playwright)",
+      "version": "1.0.0",
+      "author": { "name": "Peter Forret" },
+      "license": "MIT",
+      "keywords": ["screenshot", "web", "playwright", "shot-scraper"]
+    },
+    {
+      "name": "screenshot-desktop",
+      "source": "./plugins/screenshot-desktop",
+      "description": "Capture desktop, window, or screen region screenshots using native OS tools",
+      "version": "1.0.0",
+      "author": { "name": "Peter Forret" },
+      "license": "Apache-2.0",
+      "keywords": ["screenshot", "desktop", "screen-capture", "macos", "linux", "windows"]
+    },
+    {
+      "name": "markdown-web",
+      "source": "./plugins/markdown-web",
+      "description": "Convert URLs, YouTube videos, and RSS feeds to Markdown using markitdown",
+      "version": "1.0.0",
+      "author": { "name": "Peter Forret" },
+      "license": "MIT",
+      "keywords": ["markdown", "web", "youtube", "rss", "markitdown"]
+    },
+    {
+      "name": "markdown-file",
+      "source": "./plugins/markdown-file",
+      "description": "Convert local files (PDF, DOCX, PPTX, XLSX, etc.) to Markdown using markitdown",
+      "version": "1.0.0",
+      "author": { "name": "Peter Forret" },
+      "license": "MIT",
+      "keywords": ["markdown", "pdf", "docx", "pptx", "markitdown"]
+    }
+  ]
+}
