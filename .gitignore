@@ -1,4 +1,6 @@
-.venv/
-__pycache__/
-*.pyc
 *.png
+*.pyc
+.env
+/.claude/settings.local.json
+/.venv/
+/__pycache__/

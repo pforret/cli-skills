@@ -1,4 +1,4 @@
-# pforret/CliSkills
+# pforret/cli-skills
 
 A plugin marketplace for Claude Code — CLI-based skills wrapping popular tools.
 
@@ -7,7 +7,7 @@ A plugin marketplace for Claude Code — CLI-based skills wrapping popular tools
 ### Step 1: Add the marketplace
 
 ```bash
-/plugin marketplace add pforret/CliSkills
+/plugin marketplace add pforret/cli-skills
 ```
 
 ### Step 2: Install a plugin
@@ -47,7 +47,7 @@ Each plugin also has a `run.sh` wrapper that auto-detects whether to use Docker 
 ## Structure
 
 ```
-CliSkills/
+cli-skills/
 ├── .claude-plugin/
 │   └── marketplace.json       # marketplace catalog
 ├── plugins/
